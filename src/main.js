@@ -8,8 +8,8 @@ Vue.config.productionTip = false
 
 import mintUI from 'mint-ui';
 
-
 /*import CSS*/
+import '../static/css/reset.css'
 import 'mint-ui/lib/style.css'
 
 

@@ -3,20 +3,20 @@
     <!--  HEADER -->
     <mt-header fixed title="Vue移动端项目"></mt-header>
     <!-- MAIN -->
-    <h2>实施地方还是大家看法</h2>
     <!-- ROUTER-VIEW -->
-    <router-view></router-view>
-
+    <transition mode='out-in'>
+      <router-view></router-view>
+    </transition>
 
     <!-- FOOTER -->
-    <div class="page-tabbar">
+    <div class="page-tabbar"><!-- 
       <div class="page-wrap">
         <div class="page-title">Tabbar</div>
         <div>
           <mt-cell class="page-part" title="当前选中" :value="selected" />
         </div>
-   
-    <!-- tabcontainer -->
+       
+    tabcontainer
         <mt-tab-container class="page-tabbar-container" v-model="selected">
           <mt-tab-container-item id="首页">
             <mt-cell v-for="n in 10" :title="'餐厅 ' + n" />
@@ -29,36 +29,37 @@
           </mt-tab-container-item>
           <mt-tab-container-item id="搜索">
             <div class="page-part">
-         <!-- cell -->
+         cell
               <mt-cell v-for="n in 12" :title="'我的 ' + n" />
             </div>
             <router-link to="/">
-         <!-- button -->
+         button
               <mt-button type="danger" size="large">退出</mt-button>
             </router-link>
           </mt-tab-container-item>
         </mt-tab-container>
-      </div>
+      </div> -->
    
       <mt-tabbar v-model="selected" fixed>
         <mt-tab-item id="首页">
-          <img slot="icon"  v-if="!(selected=='首页')" src="./assets/shouye.png">
-          <img slot="icon"  v-if="selected=='首页'" src="./assets/shouye_ac.png">
+          <img slot="icon"  v-if="!(selected=='首页')" src="../static/img/shouye.png">
+          <img slot="icon"  v-if="selected=='首页'" src="../static/img/shouye_ac.png">
           首页
         </mt-tab-item>
+
         <mt-tab-item id="会员">
-          <img slot="icon" v-if="!(selected=='会员')" src="./assets/huiyuan.png">
-          <img slot="icon" v-if="selected=='会员'" src="./assets/huiyuan_ac.png">
+          <img slot="icon" v-if="!(selected=='会员')" src="../static/img/huiyuan.png">
+          <img slot="icon" v-if="selected=='会员'" src="../static/img/huiyuan_ac.png">
           会员
         </mt-tab-item>
         <mt-tab-item id="购物车">
-          <img slot="icon" v-if="!(selected=='购物车')" src="./assets/gouwuche.png">
-          <img slot="icon" v-if="selected=='购物车'" src="./assets/gouwuche_ac.png">
+          <img slot="icon" v-if="!(selected=='购物车')" src="../static/img/gouwuche.png">
+          <img slot="icon" v-if="selected=='购物车'" src="../static/img/gouwuche_ac.png">
           购物车
         </mt-tab-item>
         <mt-tab-item id="搜索">
-          <img slot="icon" v-if="!(selected=='搜索')" src="./assets/search.png">
-          <img slot="icon" v-if="selected=='搜索'" src="./assets/search_ac.png">
+          <img slot="icon" v-if="!(selected=='搜索')" src="../static/img/search.png">
+          <img slot="icon" v-if="selected=='搜索'" src="../static/img/search_ac.png">
           搜索
         </mt-tab-item>
       </mt-tabbar>
@@ -79,12 +80,36 @@ export default {
   },
   methods:{
 
+  },
+  watch:{
+    selected(newVal,oldVal){
+      switch(newVal){
+        case "首页":this.$router.push({path:'/'});break;
+        case "会员":this.$router.push({path:'/vip'});break;
+        case "购物车":this.$router.push({path:'/shopCar'});break;
+        case "搜索":this.$router.push({path:'/search'});break;
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 #app{
   padding-top: 40px;
+  overflow-x: hidden;
+}
+.v-enter,{
+  opacity: 0;
+  transform: translateX(100%);
+}
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(-100%);
+  position:absolute;
+}
+.v-enter-active,
+.v-leave-active{
+  transition: all 0.1s ease;
 }
 </style>
