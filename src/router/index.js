@@ -6,13 +6,18 @@ import home from '@/components/home'
 import search from '@/components/search'
 import shopCar from '@/components/shopCar'
 import vip from '@/components/vip'
+import newsList from '@/components/home/newsList'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-    	path: '/',
+        path:'/',
+        redirect:'/home'
+    },
+    {
+    	path: '/home',
     	name: 'home',
     	component: home
     },
@@ -27,9 +32,14 @@ export default new Router({
     	component:shopCar
     },
     {
-    	path:'/vip',
+        path:'/vip',
         name:'vip',
-    	component:vip
+        component:vip
+    },
+    {
+        path:'/home/newsList',
+        name:'newsList',
+        component:newsList
     }
   ]
 })
