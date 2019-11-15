@@ -63,7 +63,7 @@
         </mt-tab-item>
       </mt-tabbar>
     </div>
-
+  
 
 
   </div>
@@ -73,7 +73,8 @@
 export default {
   data(){
     return{
-      selected:'首页'
+      selected:'首页',
+      test:'a'
     }
   },
   methods:{
