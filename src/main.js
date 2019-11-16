@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import vueResource from 'vue-resource'
 Vue.config.productionTip = false
-
 
 import mintUI from 'mint-ui';
 
@@ -17,7 +17,7 @@ import 'mint-ui/lib/style.css'
 
 /*Vue use*/
 Vue.use(mintUI)
-
+Vue.use(vueResource)
 
 
 /* eslint-disable no-new */

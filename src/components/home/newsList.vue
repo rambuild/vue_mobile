@@ -2,32 +2,16 @@
   <div>
 
   	<ul class="mui-table-view">
-		<li class="mui-table-view-cell mui-media">
-			<a href="javascript:;">
+		<li class="mui-table-view-cell mui-media" v-for="(item,index) in newsList">
+			<router-link :to="'/home/newsInfo/'+item.id">
 				<img class="mui-media-object mui-pull-left" src="../../../static/img/shuijiao.jpg">
 				<div class="mui-media-body">
-					<p>幸福</p>
-					<span>发表时间：{{date}}</span>
+					<p>{{item.title}}</p>
+					<p class="mui-publishContent">
+						<span>发表时间：{{item.add_time}}</span><span>点击：{{item.clicked}}</span>
+					</p>
 				</div>
-			</a>
-		</li>
-		<li class="mui-table-view-cell mui-media">
-			<a href="javascript:;">
-				<img class="mui-media-object mui-pull-left" src="../../../static/img/muwu.jpg">
-				<div class="mui-media-body">
-					木屋
-					<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-				</div>
-			</a>
-		</li>
-		<li class="mui-table-view-cell mui-media">
-			<a href="javascript:;">
-				<img class="mui-media-object mui-pull-left" src="../../../static/img/cbd.jpg">
-				<div class="mui-media-body">
-					CBD
-					<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-				</div>
-			</a>
+			</router-link>
 		</li>
 	</ul>
 
@@ -38,31 +22,44 @@
 export default {
   data () {
     return {
-     date:null
+     newsList:[]
     }
   },
   methods:{
-  	getDate(){
-  		var date = new Date();
-  		var year = date.getFullYear(),
-  			month = date.getMonth()+1,
-  			day = date.getDate();
-  		var dateFormat= year+'-'+month+'-'+day
-  		this.date = dateFormat;
+  	getNewsList(){
+  		this.$http.get('http://www.liulongbin.top:3005/api/getnewsList').then(res=>{
+  			this.newsList=res.data.message
+  		})
   	}
+  	
   },
   created(){
-  	this.getDate();
+  	this.getNewsList();
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+
+<style lang="scss" scoped>
 
 @import '../../lib/mui/dist/css/mui.min.css';
 
-.mui-media-body p{
-	font-size: 15px;
+.mui-media-body{
+	background-size: 10%;
+	text-decoration: none;
+	text-decoration:none;
+	p{		
+		font-size: 16px;
+		color:#000;
+		margin-bottom:5px;
+	}
+	span{
+		font-size:12px;
+		color:rgb(38,162,255);
+	}
+	.mui-publishContent{
+		display: flex;
+		justify-content: space-between;
+	}
 }
 </style>
