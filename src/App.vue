@@ -4,9 +4,11 @@
     <mt-header fixed title="Vue移动端项目"></mt-header>
     <!-- MAIN -->
     <!-- ROUTER-VIEW -->
-    <transition mode='out-in'>
-      <router-view></router-view>
-    </transition>
+    <div class="view_content">
+      <transition mode='out-in'>
+        <router-view></router-view>
+      </transition>
+    </div>
 
     <!-- FOOTER -->
     <div class="page-tabbar"><!-- 
@@ -98,6 +100,9 @@ export default {
 #app{
   padding-top: 40px;
   overflow-x: hidden;
+  .view_content{
+    padding-bottom:80px !important;
+  }
 }
 .v-enter,{
   opacity: 0;

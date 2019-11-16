@@ -14,11 +14,11 @@
 			</router-link>
 		</li>
 	</ul>
-
   </div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../../lib/mui/dist/css/mui.min.css';
+@import '../../lib/mui/dist/css/mui.css';
 
 .mui-media-body{
 	background-size: 10%;

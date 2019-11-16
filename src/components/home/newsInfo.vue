@@ -6,20 +6,23 @@
 		<span>点击{{newsInfo.click}}次</span>
 	</p>
 	<div v-html="newsInfo.content" class="newsContent"></div>
+  <v-comment :id='this.id'></v-comment>
   </div>
 </template>
 
-<script>
+<script>	
+import comment from '../comment/comment'
+
 export default {
   data () {
     return {
-     newsInfo:{}
+      id:this.$route.params.id,
+      newsInfo:{}
     }
   },
   methods:{
   	getNewsInfo(){
-  		var id = this.$route.params.id;
-  		this.$http.get('http://www.liulongbin.top:3005/api/getnew/'+ id).then(res=>{
+  		this.$http.get('http://www.liulongbin.top:3005/api/getnew/'+ this.id).then(res=>{
   			/*this.newsInfo=res.*/
   			this.newsInfo=res.body.message[0]
   		})
@@ -27,6 +30,9 @@ export default {
   },
   mounted(){
   	this.getNewsInfo()
+  },
+  components:{
+  	'v-comment':comment
   }
 }
 </script>
