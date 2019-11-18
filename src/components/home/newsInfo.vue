@@ -11,7 +11,7 @@
 </template>
 
 <script>	
-import comment from '../comment/comment'
+import comment from '../subhome/comment'
 
 export default {
   data () {

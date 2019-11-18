@@ -2,12 +2,12 @@
   <div class="comment">
   	<h3>发表评论</h3>
   	<div class="textarea">
-  		<textarea placeholder="请输入评论内容"></textarea>
+  		<textarea placeholder="请输入评论内容" v-model='msg'></textarea>
   	</div>
-  	<mt-button type="primary" size="large">发表评论</mt-button>
+  	<mt-button type="primary" size="large" @click="pubComment">发表评论</mt-button>
 	<div class="cmtList" v-for="(item,index) in comment">
 		<div class="cmt_title">
-			<span>第{{index+1}}楼</span><span>用户：{{item.user_name}}</span><span>发表时间：{{item.add_time | dateFormat}}</span>
+			<span>第{{index+1}}楼</span><span>用户：{{item.user_name}}</span><span>发表时间：{{item.add_time}}</span>
 		</div>
 		<div class="cmt_content">
 			<p>{{item.content}}</p>
@@ -18,34 +18,54 @@
 </template>
 
 <script>
+  import {Toast} from 'mint-ui'
 export default {
   data () {
     return {
      pageIndex:1,
-     comment:[]
+     comment:[],
+     msg:''
     }
   },
   methods:{
   	getComment(){
   		this.$http.get('http://www.liulongbin.top:3005/api/getcomments/'+this.id+'?pageindex='+this.pageIndex).then(res=>{
   			this.comment = this.comment.concat(res.body.message)
-  			console.log(this.comment)
   		})
   	},
   	loadMore(){
   		this.pageIndex++;
   		this.getComment()
-  	}
+  	},
+    pubComment(){
+      this.$http.post("http://www.liulongbin.top:3005/api/postcomment/"+this.$route.params.id,{
+        content: this.msg.trim()
+      }).then(res=>{
+        if(res.body.status === 0){
+          var cmt = {
+            user_name:"匿名",
+            add_time:'2019-11-17',
+            content:this.msg.trim()
+          }
+          this.comment.unshift(cmt)
+          this.msg=''
+          Toast({
+            message:'评论成功！',
+            duration:1000
+          })
+        }
+      })
+    }
   },
   created(){
   	this.getComment()
   },
-  props:['id'],
+  props:['id']/*,
   filters:{
-  	dateFormat(d){
+  	dateFormat:function(d){
   		return d.substring(0,10)
   	}
-  }
+  }*/
 }
 </script>
 
