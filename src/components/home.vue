@@ -47,6 +47,7 @@
 		   </li>
 		</ul> 
 	</div>
+	{{$store.state.count}}
   </div>
 </template>
 

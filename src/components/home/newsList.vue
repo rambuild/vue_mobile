@@ -1,6 +1,7 @@
 <template>
   <div>
-
+	
+	<h1>dsfsdfgs</h1>
   	<ul class="mui-table-view">
 		<li class="mui-table-view-cell mui-media" v-for="(item,index) in newsList">
 			<router-link :to="'/home/newsInfo/'+item.id">
@@ -30,6 +31,9 @@ export default {
   		this.$http.get('api/getnewsList').then(res=>{
   			this.newsList=res.data.message
   		})
+  	},
+  	asd(){
+  		this.$store.commit('increaseCount')
   	}
   	
   },

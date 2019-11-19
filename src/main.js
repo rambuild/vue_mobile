@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import vueResource from 'vue-resource'
 import VuePreview from 'vue-preview';
+import Vuex from 'vuex'
+Vue.use(Vuex)
 
 import mintUI from 'mint-ui';
 import moment from 'moment'
@@ -13,7 +15,8 @@ import moment from 'moment'
 import '../static/css/reset.css'
 import 'mint-ui/lib/style.css'
 
-
+/*vuex*/
+import store from './vuex/vuex.js'
 
 
 /*Vue use*/
@@ -33,5 +36,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

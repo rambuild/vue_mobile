@@ -58,7 +58,8 @@
           <img slot="icon" v-if="selected=='会员'" src="../static/img/huiyuan_ac.png">
           会员
         </mt-tab-item>
-        <mt-tab-item id="购物车">
+        <mt-tab-item id="购物车" class='shopcar'>
+          <mt-badge size="small" color='red' id='badgePos'>{{ badgeNum }}</mt-badge>
           <img slot="icon" v-if="!(selected=='购物车')" src="../static/img/gouwuche.png">
           <img slot="icon" v-if="selected=='购物车'" src="../static/img/gouwuche_ac.png">
           购物车
@@ -81,7 +82,7 @@ export default {
   data(){
     return{
       selected:'首页',
-      
+      badgeNum:0
     }
   },
   methods:{
@@ -108,6 +109,15 @@ export default {
   overflow-x: hidden;
   .view_content{
     padding-bottom:80px !important;
+  }
+  .shopcar{
+    position: relative;
+    .mint-badge{
+      position: absolute;
+      top:0;
+      right:10px;
+      padding:3px 6px;
+    }
   }
 }
 .v-enter,{

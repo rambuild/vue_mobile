@@ -2,7 +2,7 @@
   <div  class="goodsinfo">
   	<div class="img_banner">
   		<mt-swipe :auto="3000" :speed="2000">
-        <mt-swipe-item v-for="i in sell_list">
+        <mt-swipe-item v-for="i in sell_list" :key='i.id'>
           <img :src="i.src" alt="">
         </mt-swipe-item>
       </mt-swipe>
@@ -15,14 +15,23 @@
 			<span>市场价</span>：<span class='market_price'>￥{{ goodsinfo.market_price }}</span>
 			<span>销售价</span>：<span class='sell_price'>￥{{ goodsinfo.sell_price }}</span>
 			<p class='seller_count'>
+
+        <!-- 小球半场动画 -->
+        <transition
+        @before-enter='beforeEnter'
+        @enter='enter'
+        @after-enter='afterEnter'>
+          <div class="ball" v-show='ballFlag' ref='ball'></div>
+        </transition>
+
 				<span>购买数量</span>
-				<mt-button type="button" @click="reduce_count" :disabled="sell_count==1">-</mt-button>
-				<input type="number" v-model='sell_count' />
+				<mt-button type="button" @click="reduce_count" :disabled="sell_count<=1">-</mt-button>
+				<input type="number" v-model='sell_count' :maxlength='goodsinfo.stock_quantity' />
 				<mt-button type="button" @click="add_count">+</mt-button>
 			</p>
 			<p>
 				<mt-button type="primary" size='small'>立即购买</mt-button>
-				<mt-button type="danger" size='small'>加入购物车</mt-button>
+				<mt-button type="danger" size='small' @click='addshopcar'>加入购物车</mt-button>
 			</p>
 		</div>
   	</div>		
@@ -31,8 +40,8 @@
       <p>商品货号：{{ goodsinfo.goods_no }}</p>
       <p>库存情况：{{ goodsinfo.stock_quantity }}</p>
       <p>上架时间：{{ goodsinfo.add_time | dateFormat}}</p>
-      <mt-button type='primary' size='large' plain @click='godesc'>图文介绍</mt-button>
-      <mt-button type='danger' size='large' plain @click='gocomment'>商品评论</mt-button>
+      <mt-button type="primary" size='large' plain @click='godesc'>图文介绍</mt-button>
+      <mt-button type="danger" size='large' plain @click='gocomment'>商品评论</mt-button>
   	</div>
   </div>
 </template>
@@ -45,10 +54,27 @@ export default {
      id:this.$route.params.id,
      sell_count:1,
      sell_list:[],
-     goodsinfo:[]
+     goodsinfo:[],
+     ballFlag:false
     }
   },
   methods:{
+    beforeEnter(el){
+      el.style.transform = 'translate(0,0)'
+    },
+    enter(el,done){
+      const ballPos = this.$refs.ball.getBoundingClientRect()
+      const badgePos = document.getElementById('badgePos').getBoundingClientRect()
+      const transX = badgePos.left - ballPos.left
+      const transY = badgePos.top - ballPos.top
+      el.offsetWidth
+      el.style.transform = 'translate('+transX+'px,'+transY+'px)'
+      el.style.transition = 'all 0.5s cubic-bezier(0.4,-0.3,1,0.68)'
+      done()
+    },
+    afterEnter(el){
+      this.ballFlag = !this.ballFlag
+    },
     add_count(){
       this.sell_count++;
     },
@@ -62,7 +88,6 @@ export default {
         this.sell_list = res.body.message;
       })
       this.$http.get('api/goods/getinfo/'+this.id).then(res=>{
-        console.log(res.body.message[0])
         this.goodsinfo = res.body.message[0];
       })
     },
@@ -81,11 +106,21 @@ export default {
           id:this.id
         }
       })
+    },
+    addshopcar(){
+      this.ballFlag = ! this.ballFlag
+      this.sell_count = 0
     }
   },
   mounted(){
     this.getgoodsinfo()
 
+    /*
+      const ballPos = this.$refs.ball.getBoundingClientRect()
+      const badgePos = document.getElementById('badgePos').getBoundingClientRect()
+      const transX = badgePos.left - ballPos.left
+      const transY = badgePos.top - ballPos.top
+      console.log(transX)*/
   }
 }
 </script>
@@ -135,6 +170,19 @@ export default {
   }
   p{
     color:#333;
+  }
+}
+.seller_count{
+  position: relative;
+  .ball{
+    position: absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    top:6px;
+    left:125px;
+    z-index: 1000;
+    border-radius:10px;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="comment">
   	<h3>发表评论</h3>
   	<div class="textarea">
-  		<textarea placeholder="请输入评论内容" v-model='msg'></textarea>
+  	  <textarea placeholder="请输入评论内容" v-model='msg'></textarea>
   	</div>
   	<mt-button type="primary" size="large" @click="pubComment" class='mybtn'>发表评论</mt-button>
 	<div class="cmtList" v-for="(item,index) in comment">

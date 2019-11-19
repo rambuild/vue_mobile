@@ -63,7 +63,7 @@ export default {
 	justify-content: space-between;
 	padding: 0 8px;
 	.goods_item{
-		box-shadow: 0px 0px 3px #333;
+		box-shadow: 0px 0px 3px #666;
 		width:48%;
 		margin:5px 0;
 		padding: 2px;
