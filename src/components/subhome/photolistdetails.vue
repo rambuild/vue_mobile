@@ -4,7 +4,7 @@
   	<!-- header -->
 	<h3>{{ photodetails.title }}</h3>
 	<p class='subtitle'>
-		<span class="pubtime">发表时间：{{photodetails.add_time}}</span>
+		<span class="pubtime">发表时间：{{photodetails.add_time | dateFormat}}</span>
 		<span>点击{{photodetails.click}}次</span>
 	</p>
 	<!-- 内容区域 -->
@@ -31,7 +31,7 @@ export default {
   },
   methods:{
   	getinfo(id){
-  		this.$http.get('http://www.liulongbin.top:3005/api/getimageInfo/'+id).then(res=>{
+  		this.$http.get('api/getimageInfo/'+id).then(res=>{
   			this.photodetails = res.body.message[0]
   		})
   	},
@@ -39,7 +39,7 @@ export default {
 
   	},
   	getthumbs(id){
-  		this.$http.get('http://www.liulongbin.top:3005/api/getthumimages/'+id).then(res=>{/*
+  		this.$http.get('api/getthumimages/'+id).then(res=>{/*
   			console.log(res.body.message)*/
   			res.body.message.forEach(i=>{
   				i.w=600,

@@ -2,7 +2,7 @@
   <div class='newsInfo'>
 	<h3>{{newsInfo.title}}</h3>
 	<p>
-		<span>发表时间：{{newsInfo.add_time}}</span>
+		<span>发表时间：{{newsInfo.add_time | dateFormat}}</span>
 		<span>点击{{newsInfo.click}}次</span>
 	</p>
 	<div v-html="newsInfo.content" class="newsContent"></div>
@@ -22,7 +22,7 @@ export default {
   },
   methods:{
   	getNewsInfo(){
-  		this.$http.get('http://www.liulongbin.top:3005/api/getnew/'+ this.id).then(res=>{
+  		this.$http.get('api/getnew/'+ this.id).then(res=>{
   			/*this.newsInfo=res.*/
   			this.newsInfo=res.body.message[0]
   		})

@@ -52,7 +52,7 @@ export default {
   },
   methods:{
   	getphotolist(){
-  		this.$http.get('http://www.liulongbin.top:3005/api/getimgcategory').then(res=>{
+  		this.$http.get('api/getimgcategory').then(res=>{
   			if(res.body.status === 0){
   				this.photomsg = res.body.message
   				console.log(res.body.message)
@@ -60,7 +60,7 @@ export default {
   		})
   	},
   	reqphoto(photoid){
-  		this.$http.get('http://www.liulongbin.top:3005/api/getimages/'+photoid).then(res=>{
+  		this.$http.get('api/getimages/'+photoid).then(res=>{
   			this.photolist = res.body.message
   			console.log(res.body.message)
   		})
@@ -103,12 +103,13 @@ export default {
 			text-align: center;
 			box-shadow: 0 0 6px #999;
 			position: relative;
-			text-align: left;
+			text-align: center;
 			line-height:20px;
 			.info{
 				position: absolute;
 				bottom:0;
 				left:0;
+				text-align: left;
 				background:rgba(100,100,100,0.7);
 				color:#fff;
 				.info-title{

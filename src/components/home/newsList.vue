@@ -8,7 +8,7 @@
 				<div class="mui-media-body">
 					<p>{{item.title}}</p>
 					<p class="mui-publishContent">
-						<span>发表时间：{{item.add_time}}</span><span>点击：{{item.clicked}}</span>
+						<span>发表时间：{{item.add_time | dateFormat}}</span><span>点击：{{item.click}}</span>
 					</p>
 				</div>
 			</router-link>
@@ -27,7 +27,7 @@ export default {
   },
   methods:{
   	getNewsList(){
-  		this.$http.get('http://www.liulongbin.top:3005/api/getnewsList').then(res=>{
+  		this.$http.get('api/getnewsList').then(res=>{
   			this.newsList=res.data.message
   		})
   	}

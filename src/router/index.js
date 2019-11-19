@@ -10,6 +10,10 @@ import newslist from '@/components/home/newslist'
 import newsInfo from '@/components/home/newsInfo'
 import photolist from '@/components/subhome/photolist'
 import photolistdetails from '@/components/subhome/photolistdetails'
+import goods from '@/components/subhome/goods'
+import goodsinfo from '@/components/subhome/goodsinfo'
+import goodsdesc from '@/components/subhome/goodsdesc'
+import goodscomment from '@/components/subhome/goodscomment'
 
 Vue.use(Router)
 
@@ -23,6 +27,10 @@ export default new Router({
     { path:'/home/newslist', name:'newslist', component:newslist  },
     { path:'/home/newsInfo/:id', name:'newsInfo', component:newsInfo  },
     { path:'/home/photolist', component: photolist},
-    { path:'/home/photolistdetails/:id', component: photolistdetails }
+    { path:'/home/photolistdetails/:id', component: photolistdetails },
+    { path:'/home/goods', component: goods },
+    { path:'/home/goodsinfo/:id', component: goodsinfo },
+    { path:'/home/goodsdesc/:id', component: goodsdesc ,name : 'goodsdesc'},
+    { path:'/home/goodscomment/:id', component: goodscomment ,name : 'goodscomment'}
   ]
 })

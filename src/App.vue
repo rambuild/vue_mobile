@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <!--  HEADER -->
-    <mt-header fixed title="Vue移动端项目"></mt-header>
+    <div class="header">
+      <span class="back" @click='back'><i class='mintui mintui-back'></i>返回</span>
+      <mt-header fixed title="Vue移动端项目"></mt-header>
+    </div>
+
     <!-- MAIN -->
     <!-- ROUTER-VIEW -->
     <div class="view_content">
@@ -77,11 +81,13 @@ export default {
   data(){
     return{
       selected:'首页',
-      test:'a'
+      
     }
   },
   methods:{
-
+    back(){
+      this.$router.go(-1);
+    }
   },
   watch:{
     selected(newVal,oldVal){
@@ -116,5 +122,15 @@ export default {
 .v-enter-active,
 .v-leave-active{
   transition: all 0.1s ease;
+}
+.header{
+  position: relative;
+  .back{
+    position: fixed;
+    top:10px;
+    left:20px;
+    color:#fff;
+    z-index:100;
+  }
 }
 </style>
