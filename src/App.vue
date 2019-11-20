@@ -51,23 +51,27 @@
           <img slot="icon"  v-if="!(selected=='首页')" src="../static/img/shouye.png">
           <img slot="icon"  v-if="selected=='首页'" src="../static/img/shouye_ac.png">
           首页
+          <div class="routers" @click='toIndex'></div>
         </mt-tab-item>
 
         <mt-tab-item id="会员">
           <img slot="icon" v-if="!(selected=='会员')" src="../static/img/huiyuan.png">
           <img slot="icon" v-if="selected=='会员'" src="../static/img/huiyuan_ac.png">
           会员
+          <div class="routers" @click='toVip'></div>
         </mt-tab-item>
         <mt-tab-item id="购物车" class='shopcar'>
-          <mt-badge size="small" color='red' id='badgePos'>{{ badgeNum }}</mt-badge>
+          <mt-badge size="small" color='red' id='badgePos'>{{ this.$store.getters.getCount }}</mt-badge>
           <img slot="icon" v-if="!(selected=='购物车')" src="../static/img/gouwuche.png">
           <img slot="icon" v-if="selected=='购物车'" src="../static/img/gouwuche_ac.png">
           购物车
+          <div class="routers" @click='toShopCar'></div>
         </mt-tab-item>
         <mt-tab-item id="搜索">
           <img slot="icon" v-if="!(selected=='搜索')" src="../static/img/search.png">
           <img slot="icon" v-if="selected=='搜索'" src="../static/img/search_ac.png">
           搜索
+          <div class="routers" @click='toSearch'></div>
         </mt-tab-item>
       </mt-tabbar>
     </div>
@@ -81,15 +85,26 @@
 export default {
   data(){
     return{
-      selected:'首页',
-      badgeNum:0
+      selected:'首页'
     }
   },
   methods:{
     back(){
       this.$router.go(-1);
+    },
+    toIndex(){
+      this.$router.push('/')
+    },
+    toVip(){
+      this.$router.push('/vip')
+    },
+    toShopCar(){
+      this.$router.push('/shopCar')
+    },
+    toSearch(){
+      this.$router.push('/search')
     }
-  },
+  }/*,
   watch:{
     selected(newVal,oldVal){
       switch(newVal){
@@ -98,8 +113,8 @@ export default {
         case "购物车":this.$router.push({path:'/shopCar'});break;
         case "搜索":this.$router.push({path:'/search'});break;
       }
-    }
-  }
+    }    
+  }*/
 }
 </script>
 
@@ -141,6 +156,15 @@ export default {
     left:20px;
     color:#fff;
     z-index:100;
+  }
+}
+.mint-tab-item{
+  position: relative;
+  .routers{
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

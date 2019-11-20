@@ -25,9 +25,9 @@
         </transition>
 
 				<span>购买数量</span>
-				<mt-button type="button" @click="reduce_count" :disabled="sell_count<=1">-</mt-button>
+				<mt-button type="primary" @click="reduce_count" :disabled="sell_count<=1">-</mt-button>
 				<input type="number" v-model='sell_count' :maxlength='goodsinfo.stock_quantity' />
-				<mt-button type="button" @click="add_count">+</mt-button>
+				<mt-button type="primary" @click="add_count">+</mt-button>
 			</p>
 			<p>
 				<mt-button type="primary" size='small'>立即购买</mt-button>
@@ -86,6 +86,8 @@ export default {
     getgoodsinfo(){
       this.$http.get('api/getthumimages/'+this.id).then(res=>{
         this.sell_list = res.body.message;
+        console.log('图片信息：')
+        console.log(res.body.message[0].src)
       })
       this.$http.get('api/goods/getinfo/'+this.id).then(res=>{
         this.goodsinfo = res.body.message[0];
@@ -109,18 +111,21 @@ export default {
     },
     addshopcar(){
       this.ballFlag = ! this.ballFlag
-      this.sell_count = 0
+      var goodsinfo = {
+          id:this.goodsinfo.id,
+          price:this.goodsinfo.sell_price,
+          count:this.sell_count,
+          selected:true,
+          title:this.goodsinfo.title,
+          img:this.sell_list[0].src
+      }
+      console.log(goodsinfo)
+      this.$store.commit('updateGoods',goodsinfo)
+      this.sell_count = 1
     }
   },
   mounted(){
     this.getgoodsinfo()
-
-    /*
-      const ballPos = this.$refs.ball.getBoundingClientRect()
-      const badgePos = document.getElementById('badgePos').getBoundingClientRect()
-      const transX = badgePos.left - ballPos.left
-      const transY = badgePos.top - ballPos.top
-      console.log(transX)*/
   }
 }
 </script>
