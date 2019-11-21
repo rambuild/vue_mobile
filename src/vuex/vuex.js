@@ -2,10 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+/*localStorage实现本地存储数据持久化*/
+var carlist = JSON.parse(localStorage.getItem('carlist') || "[]") 
 
 const store = new Vuex.Store({
 	state:{
-		buyGoods:[]
+		buyGoods:carlist
 	},
 	mutations:{
 		updateGoods(state,goods){
@@ -18,7 +20,9 @@ const store = new Vuex.Store({
 			})
 			if(!flag){
 				this.state.buyGoods.push(goods)
-			}			
+			}
+			localStorage.setItem('carlist',JSON.stringify(state.buyGoods))
+			console.log(typeof (state.buyGoods))
 		},
 		decreaseCount(state,id){
 			state.buyGoods.some(i=>{
@@ -28,6 +32,7 @@ const store = new Vuex.Store({
 					}
 				}
 			})
+			localStorage.setItem('carlist',JSON.stringify(state.buyGoods))
 		},
 		increaseCount(state,id){
 			state.buyGoods.some(i=>{
@@ -35,28 +40,29 @@ const store = new Vuex.Store({
 					i.count++;
 				}
 			})
+			localStorage.setItem('carlist',JSON.stringify(state.buyGoods))
 		},
 		delItem(state,id){
-			state.buyGoods.forEach((i,index)=>{
+			state.buyGoods.some((i,index)=>{
 				if(i.id == id){
 					state.buyGoods.splice(index,1)
 					console.log('okokoko')
 				}
 			})
+			localStorage.setItem('carlist',JSON.stringify(state.buyGoods))
+		},
+		setSelectCondition(state,condition){
+			state.buyGoods.forEach(i=>{
+				if( i.id == condition.id){
+					i.selected = condition.selected
+				}
+			})
+			localStorage.setItem('carlist',JSON.stringify(state.buyGoods))
 		}
 	},
 	getters:{
-		getCount(state){
-			var count=0;
-			state.buyGoods.forEach(i=>{
-				if(i.selected){
-					count += i.count
-				}
-			})
-			return count;
-		},
 		getAllAmount(state){
-			var count = 0
+			var count = 0;
 			state.buyGoods.forEach(i=>{
 				if(i.selected){
 					count += i.count
@@ -64,14 +70,18 @@ const store = new Vuex.Store({
 			})
 			return count;
 		},
-		getAllPrice(state){
-			var price = 0;
+		getAllShopCarInfo(state){
+			var shopCar = {
+				count:0,
+				price:0
+			}
 			state.buyGoods.forEach(i=>{
 				if(i.selected){
-					price += (i.price)*(i.count)
+					shopCar.count += i.count
+					shopCar.price += (i.price)*(i.count)
 				}
 			})
-			return price;
+			return shopCar;
 		}
 	}
 })

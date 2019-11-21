@@ -5,7 +5,7 @@
   "author": "fyh",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --open --host 192.168.1.122 --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --open --host 100.64.248.116 --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",

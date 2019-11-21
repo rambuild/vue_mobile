@@ -119,7 +119,6 @@ export default {
           title:this.goodsinfo.title,
           img:this.sell_list[0].src
       }
-      console.log(goodsinfo)
       this.$store.commit('updateGoods',goodsinfo)
       this.sell_count = 1
     }

@@ -3,7 +3,7 @@
    		<div class="shop_content"  v-if='this.$store.state.buyGoods.length !=0 '>
    			<div class="goods_info" v-for='i in this.$store.state.buyGoods'>
 	   			<div class="goods_info_list">
-	   				<mt-switch v-model="i.selected"></mt-switch>
+	   				<mt-switch v-model="i.selected" @change='selectedCondition(i)'></mt-switch>
 					<div class="img_box">
 						<img :src="i.img">
 					</div>
@@ -25,7 +25,7 @@
 	   			<div class="settle_box">
 	   				<div class="settle_info">
 		   				<h3>总计（不含运费）</h3>
-		   				<p>已勾选商品<span class="goods_amount"> {{  this.$store.getters.getAllAmount }} </span>件，总价:<span class="goods_price"> ￥{{ this.$store.getters.getAllPrice }}</span></p>
+		   				<p>已勾选商品<span class="goods_amount"> {{  this.$store.getters.getAllShopCarInfo.count }} </span>件，总价:<span class="goods_price"> ￥{{ this.$store.getters.getAllShopCarInfo.price }}</span></p>
 		   			</div>
 		   			<div class="settle_btn">
 		   				<mt-button type='danger'>去结算</mt-button>
@@ -56,6 +56,9 @@ export default {
     },
     deleteItem(id){
       this.$store.commit('delItem',id)
+    },
+    selectedCondition(item){
+    	this.$store.commit('setSelectCondition',item)
     }
   },
   mounted(){

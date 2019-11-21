@@ -2,7 +2,7 @@
   <div id="app">
     <!--  HEADER -->
     <div class="header">
-      <span class="back" @click='back'><i class='mintui mintui-back'></i>返回</span>
+      <span class="back" @click='back' v-show='backToggle'><i class='mintui mintui-back'></i>返回</span>
       <mt-header fixed title="Vue移动端项目"></mt-header>
     </div>
 
@@ -61,7 +61,7 @@
           <div class="routers" @click='toVip'></div>
         </mt-tab-item>
         <mt-tab-item id="购物车" class='shopcar'>
-          <mt-badge size="small" color='red' id='badgePos'>{{ this.$store.getters.getCount }}</mt-badge>
+          <mt-badge size="small" color='red' id='badgePos'>{{ this.$store.getters.getAllAmount }}</mt-badge>
           <img slot="icon" v-if="!(selected=='购物车')" src="../static/img/gouwuche.png">
           <img slot="icon" v-if="selected=='购物车'" src="../static/img/gouwuche_ac.png">
           购物车
@@ -85,7 +85,9 @@
 export default {
   data(){
     return{
-      selected:'首页'
+      selected:'首页',
+      carlist:[],
+      backToggle:true
     }
   },
   methods:{
@@ -104,7 +106,21 @@ export default {
     toSearch(){
       this.$router.push('/search')
     }
-  }/*,
+  },
+  created(){
+    (this.$route.path=='/home')?this.backToggle=false:this.backToggle=true;
+  },
+  watch:{
+    '$route.path':function(newVal,oldVal){
+      if(newVal == '/home'){
+        this.backToggle = false
+      }else{
+        this.backToggle = true
+      }
+    }
+  }
+
+  /*,
   watch:{
     selected(newVal,oldVal){
       switch(newVal){
