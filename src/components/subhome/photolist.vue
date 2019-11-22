@@ -12,7 +12,7 @@
 					<span>						
 						<a class="mui-control-item mui-active" @click='reqphoto(0)'>全部</a>
 					</span>
-					<span v-for='i in photomsg'>
+					<span v-for='i in photomsg' :key=i.id>
 						<a class="mui-control-item" @click='reqphoto(i.id)'>
 							{{ i.title }}
 						</a>
@@ -24,7 +24,7 @@
 		<!-- 图片区域 -->
 
 		<ul>
-		  <li v-for="item in photolist">
+		  <li v-for="item in photolist" :key=item.id>
 		    <router-link :to="'/home/photolistdetails/'+item.id">
 		    	<img v-lazy="item.img_url">
 			    <div class="info">

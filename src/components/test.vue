@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>这是Search</h1>
+    <h1>tessst</h1>
+    <slot name="card1"></slot>
+    <slot name="card2"></slot>
+    <slot name="card3"></slot>
   </div>
 </template>
 

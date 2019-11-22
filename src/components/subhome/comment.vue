@@ -5,7 +5,7 @@
   	  <textarea placeholder="请输入评论内容" v-model='msg'></textarea>
   	</div>
   	<mt-button type="primary" size="large" @click="pubComment" class='mybtn'>发表评论</mt-button>
-	<div class="cmtList" v-for="(item,index) in comment">
+	<div class="cmtList" v-for="(item,index) in comment" :key=item.id>
 		<div class="cmt_title">
 			<span>第{{index+1}}楼</span><span>用户：{{item.user_name}}</span><span>发表时间：{{item.add_time | dateFormat}}</span>
 		</div>

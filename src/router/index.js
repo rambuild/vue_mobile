@@ -15,6 +15,8 @@ import goodsinfo from '@/components/subhome/goodsinfo'
 import goodsdesc from '@/components/subhome/goodsdesc'
 import goodscomment from '@/components/subhome/goodscomment'
 
+import test from '@/components/test'
+
 Vue.use(Router)
 
 export default new Router({
@@ -31,6 +33,10 @@ export default new Router({
     { path:'/home/goods', component: goods },
     { path:'/home/goodsinfo/:id', component: goodsinfo },
     { path:'/home/goodsdesc/:id', component: goodsdesc ,name : 'goodsdesc'},
-    { path:'/home/goodscomment/:id', component: goodscomment ,name : 'goodscomment'}
+    { path:'/home/goodscomment/:id', component: goodscomment ,name : 'goodscomment'},
+    {
+      path:'/test',
+      component:test
+    }
   ]
 })
